@@ -57,10 +57,9 @@ public class FlightDAO extends BaseDAO<Flight> {
      * Updates existing flights with id
      *
      * @param newFlight flight information to add, must be fully populated
-     * @param id alternate id to update
      * @throws SQLException invalid data or server failure
      */
-    public void updateFlightById(Flight newFlight, Integer id) throws SQLException {
+    public void updateFlight(Flight newFlight) throws SQLException {
         if(!newFlight.validate()) throw new InvalidParameterException("Missing parameters");
         save("UPDATE flight SET route_id = ?, airplane_id = ?, departure_time = ?, reserved_seats = ?, seat_price = ? WHERE id = ?",
                 new Object[]{
@@ -69,17 +68,9 @@ public class FlightDAO extends BaseDAO<Flight> {
                         formatter.format(newFlight.getDepartureTime().withZoneSameInstant(ZoneOffset.UTC)),
                         newFlight.getReservedSeats(),
                         newFlight.getSeatPrice(),
-                        id});
+                        newFlight.getId()});
     }
 
-    /**
-     * Updates existing flight
-     * @param flight flight data to overwrite, uses flight id
-     * @throws SQLException invalid data or server failure
-     */
-    public void updateFlight(Flight flight) throws SQLException{
-        updateFlightById(flight, flight.getId());
-    }
 
     /**
      * Delete flight of id

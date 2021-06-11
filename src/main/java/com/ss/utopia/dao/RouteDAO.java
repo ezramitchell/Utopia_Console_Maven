@@ -41,27 +41,17 @@ public class RouteDAO extends BaseDAO<Route> {
     }
 
     /**
-     * Update Route of id, route should be fully populated
+     * Update Route with id, route should be fully populated
      *
-     * @param newRoute new route data
-     * @param id       id to update
-     * @throws SQLException invalid data or server failure
-     */
-    public void updateRouteById(Route newRoute, Integer id) throws SQLException {
-        if (!newRoute.validate()) throw new InvalidParameterException("Missing parameters");
-        save("UPDATE route SET origin_id = ?, destination_id = ? WHERE id = ?",
-                new Object[]{newRoute.getOriginAirport().getIataId(), newRoute.getDestinationAirport().getIataId(), id});
-    }
-
-    /**
-     * Update Route
-     *
-     * @param newRoute fully populated
+     * @param newRoute new route data, id used for update
      * @throws SQLException invalid data or server failure
      */
     public void updateRoute(Route newRoute) throws SQLException {
-        updateRouteById(newRoute, newRoute.getId());
+        if (!newRoute.validate()) throw new InvalidParameterException("Missing parameters");
+        save("UPDATE route SET origin_id = ?, destination_id = ? WHERE id = ?",
+                new Object[]{newRoute.getOriginAirport().getIataId(), newRoute.getDestinationAirport().getIataId(), newRoute.getId()});
     }
+
 
     /**
      * Find route specified by id

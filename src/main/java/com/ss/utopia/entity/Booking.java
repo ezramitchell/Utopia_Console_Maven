@@ -15,6 +15,16 @@ public class Booking {
     }
 
     /**
+     * Copy constructor
+     * @param other value to copy
+     */
+    public Booking(Booking other) {
+        this.id = other.id;
+        this.isActive = other.isActive;
+        this.confirmationCode = other.confirmationCode;
+    }
+
+    /**
      * This constructor is for constructing entity from user data
      * @param id unnecessary for inserts, specify for updates
      * @param isActive Integer in database, converted to boolean for ease in entity

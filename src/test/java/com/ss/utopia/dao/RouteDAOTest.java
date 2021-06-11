@@ -35,7 +35,7 @@ class RouteDAOTest {
                 r.setDestinationAirport(new Airport().setIataId("DDD"));
                 oldRoute = new Route(r);
 
-                dao.updateRouteById(r, r.getId());
+                dao.updateRoute(r);
                 r = dao.readRouteById(r.getId());
 
                 //make sure update happened

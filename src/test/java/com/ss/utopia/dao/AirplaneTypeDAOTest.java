@@ -31,7 +31,7 @@ class AirplaneTypeDAOTest {
 
                 //update object
                 Integer newVal = 70;
-                atd.updateAirplaneTypeById(at.setMaxCapacity(newVal), at.getId());
+                atd.updateAirplaneType(at.setMaxCapacity(newVal));
 
                 //read object, check value
                 at = atd.readAirplaneTypeById(at.getId());

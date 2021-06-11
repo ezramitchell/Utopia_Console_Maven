@@ -46,10 +46,9 @@ public class UserDAO extends BaseDAO<User> {
      * Update user at id
      *
      * @param user data to write, must be populated
-     * @param id   alternate id
      * @throws SQLException invalid data or server failure
      */
-    public void updateUserAtId(User user, Integer id) throws SQLException {
+    public void updateUser(User user) throws SQLException {
         if (!user.validate()) throw new InvalidParameterException("Missing parameters");
         save("UPDATE user SET role_id = ?, given_name = ?, family_name = ?, username = ?, email = ?, password = ?, phone = ? WHERE id = ?",
                 new Object[]{user.getRole().getId(),
@@ -59,17 +58,7 @@ public class UserDAO extends BaseDAO<User> {
                         user.getEmail(),
                         user.getPassword(),
                         user.getPhone(),
-                        id});
-    }
-
-    /**
-     * Update user
-     *
-     * @param user user to update, must be fully populated
-     * @throws SQLException invalid data or server failure
-     */
-    public void updateUser(User user) throws SQLException {
-        updateUserAtId(user, user.getId());
+                        user.getId()});
     }
 
     /**
