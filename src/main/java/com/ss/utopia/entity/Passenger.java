@@ -8,7 +8,6 @@ public class Passenger {
     private Booking booking;
     private String givenName;
     private String familyName;
-    private Date dob;
     private String gender;
     private String address;
 
@@ -17,7 +16,6 @@ public class Passenger {
                 && booking != null
                 && givenName != null
                 && familyName != null
-                && dob != null
                 && gender != null
                 && address != null;
     }
@@ -25,12 +23,20 @@ public class Passenger {
     public Passenger() {
     }
 
-    public Passenger(Integer id, Booking booking, String givenName, String familyName, Date dob, String gender, String address) {
+    public Passenger(Passenger other) {
+        this.id = other.id;
+        this.booking = other.booking;
+        this.givenName = other.givenName;
+        this.familyName = other.familyName;
+        this.gender = other.gender;
+        this.address = other.address;
+    }
+
+    public Passenger(Integer id, Booking booking, String givenName, String familyName, String gender, String address) {
         this.id = id;
         this.booking = booking;
         this.givenName = givenName;
         this.familyName = familyName;
-        this.dob = dob;
         this.gender = gender;
         this.address = address;
     }
@@ -40,12 +46,12 @@ public class Passenger {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Passenger passenger = (Passenger) o;
-        return Objects.equals(id, passenger.id) && Objects.equals(booking, passenger.booking) && Objects.equals(givenName, passenger.givenName) && Objects.equals(familyName, passenger.familyName) && Objects.equals(dob, passenger.dob) && Objects.equals(gender, passenger.gender) && Objects.equals(address, passenger.address);
+        return Objects.equals(id, passenger.id) && Objects.equals(booking, passenger.booking) && Objects.equals(givenName, passenger.givenName) && Objects.equals(familyName, passenger.familyName) && Objects.equals(gender, passenger.gender) && Objects.equals(address, passenger.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, booking, givenName, familyName, dob, gender, address);
+        return Objects.hash(id, booking, givenName, familyName, gender, address);
     }
 
     public Integer getId() {
@@ -81,15 +87,6 @@ public class Passenger {
 
     public Passenger setFamilyName(String familyName) {
         this.familyName = familyName;
-        return this;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public Passenger setDob(Date dob) {
-        this.dob = dob;
         return this;
     }
 

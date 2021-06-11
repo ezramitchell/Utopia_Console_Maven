@@ -42,13 +42,13 @@ class AirplaneTypeDAOTest {
                 atd.deleteAirplaneType(at);
 
                 assertNull(atd.readAirplaneTypeById(at.getId())); //object should be deleted
-            } catch (SQLException throwables){
-                throwables.printStackTrace();
+            } catch (SQLException throwable){
+                throwable.printStackTrace();
                 fail();
             }
 
             c.rollback();
-        } catch (SQLException throwables) {
+        } catch (SQLException throwable) {
             System.out.println("Connection failed");
             fail();
         }

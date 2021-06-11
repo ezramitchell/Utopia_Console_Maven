@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,5 +52,15 @@ class BookingDAOTest {
 
     @Test
     void readAll() {
+        try(Connection c = ConnectionUtil.getConnection()) {
+            List<Booking> bookings = new BookingDAO(c).readAll();
+            assertTrue(bookings.size() > 0);
+            for (Booking booking : bookings) {
+                assertTrue(booking.validate());
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            fail();
+        }
     }
 }
