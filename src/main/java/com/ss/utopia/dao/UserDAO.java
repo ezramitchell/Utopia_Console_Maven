@@ -3,7 +3,6 @@ package com.ss.utopia.dao;
 import com.ss.utopia.entity.User;
 import com.ss.utopia.entity.UserRole;
 
-import javax.management.relation.Role;
 import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -59,7 +58,8 @@ public class UserDAO extends BaseDAO<User> {
                         user.getUsername(),
                         user.getEmail(),
                         user.getPassword(),
-                        user.getPhone()});
+                        user.getPhone(),
+                        id});
     }
 
     /**
@@ -123,6 +123,7 @@ public class UserDAO extends BaseDAO<User> {
             temp.setGivenName(rs.getString("given_name"));
             temp.setFamilyName(rs.getString("family_name"));
             temp.setUsername(rs.getString("username"));
+            temp.setEmail(rs.getString("email"));
             temp.setPassword(rs.getString("password"));
             temp.setPhone(rs.getString("phone"));
             users.add(temp);

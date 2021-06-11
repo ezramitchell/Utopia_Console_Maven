@@ -53,14 +53,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id)
-                && Objects.equals(role, user.role)
-                && Objects.equals(givenName, user.givenName)
-                && Objects.equals(familyName, user.familyName)
-                && Objects.equals(username, user.username)
-                && Objects.equals(email, user.email)
-                && Objects.equals(password, user.password)
-                && Objects.equals(phone, user.phone);
+        return Objects.equals(id, user.id) && Objects.equals(role, user.role) && Objects.equals(givenName, user.givenName) && Objects.equals(familyName, user.familyName) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(phone, user.phone);
     }
 
     @Override
