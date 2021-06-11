@@ -7,7 +7,7 @@ public class Airplane {
     private AirplaneType airplaneType;
 
 
-    public boolean validate(){
+    public boolean validate() {
         return id != null && airplaneType != null;
     }
 

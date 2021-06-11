@@ -1,6 +1,5 @@
 package com.ss.utopia.entity;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class Passenger {

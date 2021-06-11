@@ -7,7 +7,7 @@ public class Booking {
     private Boolean isActive;
     private String confirmationCode;
 
-    public boolean validate(){
+    public boolean validate() {
         return id != null && isActive != null && confirmationCode != null;
     }
 
@@ -16,6 +16,7 @@ public class Booking {
 
     /**
      * Copy constructor
+     *
      * @param other value to copy
      */
     public Booking(Booking other) {
@@ -26,8 +27,9 @@ public class Booking {
 
     /**
      * This constructor is for constructing entity from user data
-     * @param id unnecessary for inserts, specify for updates
-     * @param isActive Integer in database, converted to boolean for ease in entity
+     *
+     * @param id               unnecessary for inserts, specify for updates
+     * @param isActive         Integer in database, converted to boolean for ease in entity
      * @param confirmationCode code sent to user
      */
     public Booking(Integer id, boolean isActive, String confirmationCode) {
@@ -60,6 +62,7 @@ public class Booking {
 
     /**
      * Don't use this method for database
+     *
      * @return active state, nullable
      */
     public Boolean isActive() {
@@ -68,16 +71,19 @@ public class Booking {
 
     /**
      * Use this method for database
+     *
      * @return active in form of int
      */
-    public Integer getActiveNum(){return isActive ? 1 : 0;}
+    public Integer getActiveNum() {
+        return isActive ? 1 : 0;
+    }
 
     public Booking setActive(Boolean active) {
         isActive = active;
         return this;
     }
 
-    public Booking setActive(Integer active){
+    public Booking setActive(Integer active) {
         isActive = active == 1;
         return this;
     }

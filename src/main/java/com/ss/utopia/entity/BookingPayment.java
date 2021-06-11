@@ -7,7 +7,7 @@ public class BookingPayment {
     private String stripeId;
     private Boolean refunded;
 
-    public boolean validate(){
+    public boolean validate() {
         return bookingId != null && stripeId != null && refunded != null;
     }
 
@@ -51,7 +51,7 @@ public class BookingPayment {
         return this;
     }
 
-    public BookingPayment setRefunded(Integer refunded){
+    public BookingPayment setRefunded(Integer refunded) {
         this.refunded = refunded == 1;
         return this;
     }

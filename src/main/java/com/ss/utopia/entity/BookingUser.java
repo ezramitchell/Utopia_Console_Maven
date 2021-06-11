@@ -6,7 +6,7 @@ public class BookingUser {
     private Booking booking;
     private User user;
 
-    public boolean validate(){
+    public boolean validate() {
         return user != null && booking != null;
     }
 

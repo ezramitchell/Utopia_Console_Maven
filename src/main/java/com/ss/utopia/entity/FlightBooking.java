@@ -6,11 +6,16 @@ public class FlightBooking {
     private Flight flight;
     private Booking booking;
 
-    public boolean validate(){
+    public boolean validate() {
         return flight != null && booking != null;
     }
 
     public FlightBooking() {
+    }
+
+    public FlightBooking(FlightBooking other) {
+        this.flight = other.flight;
+        this.booking = other.booking;
     }
 
     public FlightBooking(Flight flight, Booking booking) {

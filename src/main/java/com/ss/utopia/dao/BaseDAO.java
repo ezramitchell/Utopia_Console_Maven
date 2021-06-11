@@ -25,7 +25,7 @@ public abstract class BaseDAO<T> {
      * @param args arguments to replace ?'s
      * @throws SQLException invalid data or server failure
      */
-    public Integer save(String sql,@Nullable Object[] args) throws SQLException {
+    public Integer save(String sql, @Nullable Object[] args) throws SQLException {
         PreparedStatement stm = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         if (args != null) {
             int i = 1;
@@ -52,9 +52,9 @@ public abstract class BaseDAO<T> {
      * @return List of specified generic
      * @throws SQLException invalid data or server failure
      */
-    public List<T> read(String sql,@Nullable Object[] args) throws SQLException {
+    public List<T> read(String sql, @Nullable Object[] args) throws SQLException {
         PreparedStatement stm = conn.prepareStatement(sql);
-        if(args != null) {
+        if (args != null) {
             int i = 1;
             for (Object arg : args) {
                 stm.setObject(i, arg);

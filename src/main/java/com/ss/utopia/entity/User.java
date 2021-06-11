@@ -12,7 +12,7 @@ public class User {
     private String password; //hopefully this is hashed
     private String phone;
 
-    public boolean validate(){
+    public boolean validate() {
         return id != null
                 && role != null
                 && givenName != null

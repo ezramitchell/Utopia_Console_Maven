@@ -1,6 +1,5 @@
 package com.ss.utopia.dao;
 
-import com.ss.utopia.entity.Airport;
 import com.ss.utopia.entity.AirplaneType;
 
 import java.security.InvalidParameterException;

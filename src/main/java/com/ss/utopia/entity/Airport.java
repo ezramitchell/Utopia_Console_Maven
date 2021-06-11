@@ -7,7 +7,7 @@ public class Airport {
     private String iataId;
     private String city;
 
-    public boolean validate(){
+    public boolean validate() {
         return iataId != null && city != null;
     }
 
@@ -37,7 +37,7 @@ public class Airport {
     }
 
     public Airport setIataId(String iataId) {
-        if(iataId.length() != 3) throw new InvalidParameterException("Invalid id");
+        if (iataId.length() != 3) throw new InvalidParameterException("Invalid id");
         this.iataId = iataId;
         return this;
     }

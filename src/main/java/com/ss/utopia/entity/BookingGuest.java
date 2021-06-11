@@ -7,7 +7,7 @@ public class BookingGuest {
     private String contactEmail;
     private String contactPhone;
 
-    public boolean validate(){
+    public boolean validate() {
         return booking != null && contactEmail != null && contactPhone != null;
     }
 

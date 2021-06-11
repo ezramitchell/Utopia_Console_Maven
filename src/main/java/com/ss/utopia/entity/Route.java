@@ -7,7 +7,7 @@ public class Route {
     private Airport originAirport;
     private Airport destinationAirport;
 
-    public boolean validate(){
+    public boolean validate() {
         return id != null && originAirport != null && destinationAirport != null;
     }
 

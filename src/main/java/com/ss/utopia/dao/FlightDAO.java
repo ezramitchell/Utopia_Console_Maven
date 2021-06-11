@@ -42,7 +42,7 @@ public class FlightDAO extends BaseDAO<Flight> {
      * @see com.ss.utopia.entity.Flight
      */
     public Flight addFlight(Flight flight) throws SQLException {
-        if(!flight.validate()) throw new InvalidParameterException("Missing parameters");
+        if (!flight.validate()) throw new InvalidParameterException("Missing parameters");
         Integer id = save("INSERT into flight (route_id, airplane_id, departure_time, reserved_seats, seat_price) values(?, ?, ?, ?, ?)",
                 new Object[]{
                         flight.getRoute().getId(),
@@ -60,7 +60,7 @@ public class FlightDAO extends BaseDAO<Flight> {
      * @throws SQLException invalid data or server failure
      */
     public void updateFlight(Flight newFlight) throws SQLException {
-        if(!newFlight.validate()) throw new InvalidParameterException("Missing parameters");
+        if (!newFlight.validate()) throw new InvalidParameterException("Missing parameters");
         save("UPDATE flight SET route_id = ?, airplane_id = ?, departure_time = ?, reserved_seats = ?, seat_price = ? WHERE id = ?",
                 new Object[]{
                         newFlight.getRoute().getId(),

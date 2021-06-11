@@ -63,19 +63,21 @@ public class UserDAO extends BaseDAO<User> {
 
     /**
      * Find User specified by id
+     *
      * @param id id to find
      * @return User
-     * @see com.ss.utopia.entity.User
      * @throws SQLException invalid data or server failure
+     * @see com.ss.utopia.entity.User
      */
-    public User readUserById(Integer id) throws SQLException{
+    public User readUserById(Integer id) throws SQLException {
         List<User> users = read("SELECT * FROM user WHERE id = ?", new Object[]{id});
-        if(users.size() == 0) return null;
+        if (users.size() == 0) return null;
         return users.get(0);
     }
 
     /**
      * Read all Users
+     *
      * @return List of User
      * @throws SQLException invalid data or server failure
      */
@@ -85,6 +87,7 @@ public class UserDAO extends BaseDAO<User> {
 
     /**
      * Delete user at id
+     *
      * @param id id to delete
      * @throws SQLException invalid data or server failure
      */
@@ -94,6 +97,7 @@ public class UserDAO extends BaseDAO<User> {
 
     /**
      * Delete user
+     *
      * @param user user to delete
      * @throws SQLException invalid data or server failure
      */

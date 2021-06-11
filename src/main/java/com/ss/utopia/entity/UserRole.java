@@ -6,7 +6,7 @@ public class UserRole {
     private Integer id;
     private String name;
 
-    public boolean validate(){
+    public boolean validate() {
         return id != null && name != null;
     }
 

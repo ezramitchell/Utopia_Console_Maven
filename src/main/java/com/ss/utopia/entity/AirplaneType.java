@@ -6,7 +6,7 @@ public class AirplaneType {
     private Integer id;
     private Integer maxCapacity;
 
-    public boolean validate(){
+    public boolean validate() {
         return id != null && maxCapacity != null;
     }
 
