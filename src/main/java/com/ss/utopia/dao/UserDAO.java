@@ -76,6 +76,18 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
+     * Get all users of role_id
+     *
+     * @param typeId role_id to search
+     * @return List of User
+     * @throws SQLException invalid data or server failure
+     * @see User
+     */
+    public List<User> getUsersByType(Integer typeId) throws SQLException {
+        return read("SELECT * FROM user WHERE role_id = ?", new Object[]{typeId});
+    }
+
+    /**
      * Read all Users
      *
      * @return List of User

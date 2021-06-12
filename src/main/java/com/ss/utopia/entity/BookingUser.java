@@ -13,6 +13,11 @@ public class BookingUser {
     public BookingUser() {
     }
 
+    public BookingUser(BookingUser other) {
+        this.booking = other.booking;
+        this.user = other.user;
+    }
+
     public BookingUser(Booking booking, User user) {
         this.booking = booking;
         this.user = user;
