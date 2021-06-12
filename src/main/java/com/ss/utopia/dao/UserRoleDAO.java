@@ -14,21 +14,43 @@ import java.util.List;
  */
 public class UserRoleDAO extends BaseDAO<UserRole> {
 
-
+    /**
+     * Takes sql connection object, pass connection without auto commits for transactions
+     *
+     * @param conn SQL connection
+     */
     public UserRoleDAO(Connection conn) {
         super(conn);
     }
 
+    /**
+     * Read UserRole from id
+     * @param id id to read
+     * @return UserRole
+     * @throws SQLException invalid data or server failure
+     * @see com.ss.utopia.entity.UserRole
+     */
     public UserRole readFromId(Integer id) throws SQLException {
         List<UserRole> userRoles = read("SELECT * FROM user_role WHERE id = ?", new Object[]{id});
         if (userRoles.size() == 0) return null;
         return userRoles.get(0);
     }
 
+    /**
+     * Utility method for easier reading
+     * @param user user to get role from
+     * @return UserRole
+     * @throws SQLException invalid data or server failure
+     */
     public UserRole readFromUser(User user) throws SQLException {
-        return readFromId(user.getId());
+        return readFromId(user.getRole().getId());
     }
 
+    /**
+     *  Read all UserRoles
+     * @return List of UserRole
+     * @throws SQLException invalid data or server failure
+     */
     public List<UserRole> readAll() throws SQLException {
         return read("SELECT * FROM user_role", null);
     }

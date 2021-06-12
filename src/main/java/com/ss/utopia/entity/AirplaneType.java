@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class AirplaneType {
     private Integer id;
-    private Integer maxCapacity;
+    private Integer firstCapacity;
+    private Integer economyCapacity;
+    private Integer businessCapacity;
 
     public boolean validate() {
-        return id != null && maxCapacity != null;
+        return id != null && firstCapacity != null;
     }
 
     public AirplaneType() {
@@ -15,7 +17,16 @@ public class AirplaneType {
 
     public AirplaneType(AirplaneType other) {
         this.id = other.id;
-        this.maxCapacity = other.maxCapacity;
+        this.firstCapacity = other.firstCapacity;
+        this.economyCapacity = other.economyCapacity;
+        this.businessCapacity = other.businessCapacity;
+    }
+
+    public AirplaneType(Integer id, Integer firstCapacity, Integer economyCapacity, Integer businessCapacity) {
+        this.id = id;
+        this.firstCapacity = firstCapacity;
+        this.economyCapacity = economyCapacity;
+        this.businessCapacity = businessCapacity;
     }
 
     @Override
@@ -23,12 +34,12 @@ public class AirplaneType {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AirplaneType that = (AirplaneType) o;
-        return Objects.equals(id, that.id) && Objects.equals(maxCapacity, that.maxCapacity);
+        return Objects.equals(id, that.id) && Objects.equals(firstCapacity, that.firstCapacity) && Objects.equals(economyCapacity, that.economyCapacity) && Objects.equals(businessCapacity, that.businessCapacity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, maxCapacity);
+        return Objects.hash(id, firstCapacity, economyCapacity, businessCapacity);
     }
 
     public Integer getId() {
@@ -40,12 +51,30 @@ public class AirplaneType {
         return this;
     }
 
-    public Integer getMaxCapacity() {
-        return maxCapacity;
+    public Integer getFirstCapacity() {
+        return firstCapacity;
     }
 
-    public AirplaneType setMaxCapacity(Integer maxCapacity) {
-        this.maxCapacity = maxCapacity;
+    public AirplaneType setFirstCapacity(Integer firstCapacity) {
+        this.firstCapacity = firstCapacity;
+        return this;
+    }
+
+    public Integer getEconomyCapacity() {
+        return economyCapacity;
+    }
+
+    public AirplaneType setEconomyCapacity(Integer economyCapacity) {
+        this.economyCapacity = economyCapacity;
+        return this;
+    }
+
+    public Integer getBusinessCapacity() {
+        return businessCapacity;
+    }
+
+    public AirplaneType setBusinessCapacity(Integer businessCapacity) {
+        this.businessCapacity = businessCapacity;
         return this;
     }
 }

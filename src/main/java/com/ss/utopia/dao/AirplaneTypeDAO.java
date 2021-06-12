@@ -34,8 +34,8 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
      */
     public AirplaneType addAirplaneType(AirplaneType airplaneType) throws SQLException {
         if (!airplaneType.validate()) throw new InvalidParameterException("Missing parameters");
-        Integer id = save("INSERT INTO airplane_type (max_capacity) VALUES (?)",
-                new Object[]{airplaneType.getMaxCapacity()});
+        Integer id = save("INSERT INTO airplane_type (first_capacity, economy_capacity, business_capacity) VALUES (?, ?, ?)",
+                new Object[]{airplaneType.getFirstCapacity(), airplaneType.getEconomyCapacity(), airplaneType.getBusinessCapacity()});
         return airplaneType.setId(id);
     }
 
@@ -48,8 +48,11 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
     public void updateAirplaneType(AirplaneType newAirplaneType) throws SQLException {
         if (!newAirplaneType.validate()) throw new InvalidParameterException("Missing parameters");
 
-        save("UPDATE airplane_type SET id = ?, max_capacity = ? WHERE id = ?",
-                new Object[]{newAirplaneType.getId(), newAirplaneType.getMaxCapacity(), newAirplaneType.getId()});
+        save("UPDATE airplane_type first_capacity = ?, economy_capacity = ?, business_capacity = ? WHERE id = ?",
+                new Object[]{newAirplaneType.getFirstCapacity(),
+                        newAirplaneType.getEconomyCapacity(),
+                        newAirplaneType.getBusinessCapacity(),
+                        newAirplaneType.getId()});
     }
 
     /**
@@ -75,7 +78,7 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
      * @see AirplaneType
      */
     public List<AirplaneType> readAll() throws SQLException {
-        return read("SELECT * FROM airplane_type", new Object[]{});
+        return read("SELECT * FROM airplane_type", null);
     }
 
     /**
@@ -104,7 +107,7 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
         while (rs.next()) {
             AirplaneType temp = new AirplaneType();
             temp.setId(rs.getInt("id"));
-            temp.setMaxCapacity(rs.getInt("max_capacity"));
+            temp.setFirstCapacity(rs.getInt("max_capacity"));
             airplaneType.add(temp);
         }
         return airplaneType;

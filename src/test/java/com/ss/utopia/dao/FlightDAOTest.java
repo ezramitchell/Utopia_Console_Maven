@@ -68,6 +68,7 @@ class FlightDAOTest {
         try(Connection c = ConnectionUtil.getConnection()){
             FlightDAO dao = new FlightDAO(c);
             List<Flight> flightList = dao.readAll();
+            assertTrue(flightList.size() > 0);
             for (Flight flight : flightList) {
                 assertTrue(flight.validate()); //populated objects
             }

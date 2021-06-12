@@ -16,7 +16,7 @@ class AirplaneTypeDAOTest {
     public void testAddDelete(){
         AirplaneType at = new AirplaneType();
         Integer fMaxCap = 60;
-        at.setMaxCapacity(fMaxCap);
+        at.setFirstCapacity(fMaxCap);
         Integer fId = at.setId(-1).getId();
 
 
@@ -27,16 +27,16 @@ class AirplaneTypeDAOTest {
                 at = atd.addAirplaneType(at); //returns object with created id
 
                 assertNotEquals(fId, at.getId()); //primary key should have changed
-                assertEquals(fMaxCap, at.getMaxCapacity()); //other values should not change
+                assertEquals(fMaxCap, at.getFirstCapacity()); //other values should not change
 
                 //update object
                 Integer newVal = 70;
-                atd.updateAirplaneType(at.setMaxCapacity(newVal));
+                atd.updateAirplaneType(at.setFirstCapacity(newVal));
 
                 //read object, check value
                 at = atd.readAirplaneTypeById(at.getId());
                 assertNotNull(at);
-                assertEquals(newVal, at.getMaxCapacity());
+                assertEquals(newVal, at.getFirstCapacity());
 
                 //delete object
                 atd.deleteAirplaneType(at);
@@ -59,6 +59,7 @@ class AirplaneTypeDAOTest {
         try(Connection c = ConnectionUtil.getConnection()){
             AirplaneTypeDAO atd = new AirplaneTypeDAO(c);
             List<AirplaneType> airplaneTypeList = atd.readAll();
+            assertTrue(airplaneTypeList.size() > 0);
             for (AirplaneType type : airplaneTypeList) {
                 assertTrue(type.validate());
             }

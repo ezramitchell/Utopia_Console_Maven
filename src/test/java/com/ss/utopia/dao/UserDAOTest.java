@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -64,5 +65,15 @@ class UserDAOTest {
 
     @Test
     void readAll() {
+        try (Connection c = ConnectionUtil.getConnection()) {
+            List<User> userList = new UserDAO(c).readAll();
+            assertTrue(userList.size() > 0);
+            for (User user : userList) {
+                assertTrue(user.validate());
+            }
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            fail();
+        }
     }
 }

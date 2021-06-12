@@ -56,6 +56,7 @@ class AirportDAOTest {
         try(Connection c = ConnectionUtil.getConnection()){
             AirportDAO atd = new AirportDAO(c);
             List<Airport> airports = atd.readAll();
+            assertTrue(airports.size() > 0);
             for (Airport type : airports) {
                 assertTrue(type.validate()); //every object fully populated
             }

@@ -63,6 +63,7 @@ class RouteDAOTest {
         try(Connection c = ConnectionUtil.getConnection()){
             RouteDAO dao = new RouteDAO(c);
             List<Route> routes = dao.readAll();
+            assertTrue(routes.size() > 0);
             for (Route route : routes) {
                 assertTrue(route.validate()); //fully populated objects
             }
