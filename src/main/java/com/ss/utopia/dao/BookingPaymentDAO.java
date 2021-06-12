@@ -78,7 +78,7 @@ public class BookingPaymentDAO extends BaseDAO<BookingPayment> {
      * @see BookingPayment
      */
     public List<BookingPayment> readAll() throws SQLException {
-        return read("SELECT * FROM booking_payment", new Object[]{});
+        return read("SELECT * FROM booking_payment", null);
     }
 
     /**

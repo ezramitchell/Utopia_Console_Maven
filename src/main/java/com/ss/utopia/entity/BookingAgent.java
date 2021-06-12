@@ -4,18 +4,23 @@ import java.util.Objects;
 
 public class BookingAgent {
     private Booking booking;
-    private User agentId;
+    private User agent;
 
     public boolean validate() {
-        return booking != null && agentId != null;
+        return booking != null && agent != null;
     }
 
     public BookingAgent() {
     }
 
+    public BookingAgent(BookingAgent other) {
+        this.booking = other.booking;
+        this.agent = other.agent;
+    }
+
     public BookingAgent(Booking booking, User agentId) {
         this.booking = booking;
-        this.agentId = agentId;
+        this.agent = agentId;
     }
 
     public Booking getBooking() {
@@ -27,12 +32,12 @@ public class BookingAgent {
         return this;
     }
 
-    public User getAgentId() {
-        return agentId;
+    public User getAgent() {
+        return agent;
     }
 
-    public BookingAgent setAgentId(User agentId) {
-        this.agentId = agentId;
+    public BookingAgent setAgent(User agent) {
+        this.agent = agent;
         return this;
     }
 
@@ -41,11 +46,11 @@ public class BookingAgent {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BookingAgent that = (BookingAgent) o;
-        return Objects.equals(booking, that.booking) && Objects.equals(agentId, that.agentId);
+        return Objects.equals(booking, that.booking) && Objects.equals(agent, that.agent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(booking, agentId);
+        return Objects.hash(booking, agent);
     }
 }
