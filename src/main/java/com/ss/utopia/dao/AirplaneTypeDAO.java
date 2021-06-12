@@ -48,7 +48,7 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
     public void updateAirplaneType(AirplaneType newAirplaneType) throws SQLException {
         if (!newAirplaneType.validate()) throw new InvalidParameterException("Missing parameters");
 
-        save("UPDATE airplane_type first_capacity = ?, economy_capacity = ?, business_capacity = ? WHERE id = ?",
+        save("UPDATE airplane_type SET first_capacity = ?, economy_capacity = ?, business_capacity = ? WHERE id = ?",
                 new Object[]{newAirplaneType.getFirstCapacity(),
                         newAirplaneType.getEconomyCapacity(),
                         newAirplaneType.getBusinessCapacity(),
@@ -107,7 +107,9 @@ public class AirplaneTypeDAO extends BaseDAO<AirplaneType> {
         while (rs.next()) {
             AirplaneType temp = new AirplaneType();
             temp.setId(rs.getInt("id"));
-            temp.setFirstCapacity(rs.getInt("max_capacity"));
+            temp.setFirstCapacity(rs.getInt("first_capacity"));
+            temp.setEconomyCapacity(rs.getInt("economy_capacity"));
+            temp.setBusinessCapacity(rs.getInt("business_capacity"));
             airplaneType.add(temp);
         }
         return airplaneType;

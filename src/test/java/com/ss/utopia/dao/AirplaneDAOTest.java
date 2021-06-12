@@ -1,6 +1,7 @@
 package com.ss.utopia.dao;
 
 import com.ss.utopia.db.ConnectionUtil;
+import com.ss.utopia.entity.Airplane;
 import com.ss.utopia.entity.AirplaneType;
 import org.junit.jupiter.api.Test;
 
@@ -10,38 +11,36 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AirplaneTypeDAOTest {
+class AirplaneDAOTest {
 
     @Test
     public void testAddDelete(){
-
-
-
         try(Connection c = ConnectionUtil.getTransaction()){
             try {
-                AirplaneTypeDAO atd = new AirplaneTypeDAO(c);
+                AirplaneDAO atd = new AirplaneDAO(c);
                 //add airplane
 
-                AirplaneType at = new AirplaneType(-1, 20, 20, 20);
-                AirplaneType copy = new AirplaneType(at);
-                at = atd.addAirplaneType(at); //returns object with created id
+                Airplane at = new Airplane(-1, new AirplaneType().setId(1));
+                Airplane copy = new Airplane(at);
+                at = atd.addAirplane(at); //returns object with created id
 
                 assertNotEquals(copy, at); //primary key should have changed
-                assertEquals(copy.getFirstCapacity(), at.getFirstCapacity()); //other values should not change
+                assertEquals(copy.getAirplaneType(), at.getAirplaneType()); //other values should not change
 
                 //update object
-                at.setFirstCapacity(40);
-                atd.updateAirplaneType(at);
+                at.setAirplaneType(new AirplaneType().setId(4));
+                atd.updateAirplane(at);
 
                 //read object, check value
-                at = atd.readAirplaneTypeById(at.getId());
+                at = atd.readAirplaneById(at.getId());
                 assertNotNull(at);
-                assertEquals(40, at.getFirstCapacity());
+                assertNotEquals(at, copy);
+                assertEquals(4, at.getAirplaneType().getId());
 
                 //delete object
-                atd.deleteAirplaneType(at);
+                atd.deleteAirplane(at);
 
-                assertNull(atd.readAirplaneTypeById(at.getId())); //object should be deleted
+                assertNull(atd.readAirplaneById(at.getId())); //object should be deleted
             } catch (SQLException throwable){
                 throwable.printStackTrace();
                 fail();
@@ -57,10 +56,10 @@ class AirplaneTypeDAOTest {
     @Test
     public void testRead(){
         try(Connection c = ConnectionUtil.getConnection()){
-            AirplaneTypeDAO atd = new AirplaneTypeDAO(c);
-            List<AirplaneType> airplaneTypeList = atd.readAll();
-            assertTrue(airplaneTypeList.size() > 0);
-            for (AirplaneType type : airplaneTypeList) {
+            AirplaneDAO atd = new AirplaneDAO(c);
+            List<Airplane> airplanes = atd.readAll();
+            assertTrue(airplanes.size() > 0);
+            for (Airplane type : airplanes) {
                 assertTrue(type.validate());
             }
         } catch (SQLException throwables) {

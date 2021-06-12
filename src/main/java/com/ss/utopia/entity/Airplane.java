@@ -19,6 +19,11 @@ public class Airplane {
         this.airplaneType = other.airplaneType;
     }
 
+    public Airplane(Integer id, AirplaneType airplaneType) {
+        this.id = id;
+        this.airplaneType = airplaneType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
