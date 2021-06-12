@@ -1,14 +1,17 @@
 package com.ss.utopia.dao;
 
+import com.ss.utopia.entity.Airplane;
 import com.ss.utopia.entity.Booking;
 import com.ss.utopia.entity.Flight;
 import com.ss.utopia.entity.FlightBooking;
+import com.ss.utopia.util.SQLUtil;
 
 import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class FlightBookingDAO extends BaseDAO<FlightBooking> {
@@ -35,6 +38,19 @@ public class FlightBookingDAO extends BaseDAO<FlightBooking> {
         save("INSERT INTO flight_booking (flight_id, booking_id) VALUES (?, ?)",
                 new Object[]{booking.getFlight().getId(), booking.getBooking().getId()});
     }
+
+    /**
+     * Search table with parameters
+     *
+     * @param search must have at least one pair, services responsibility to have correct column names
+     * @return List of entity
+     * @throws SQLException invalid data or server failure
+     */
+    public List<FlightBooking> search(LinkedHashMap<String, String> search) throws SQLException {
+        if (search.size() == 0) return new ArrayList<>();
+        return read(SQLUtil.constructSqlSearch("flight_booking", search.size()), SQLUtil.collapseMap(search));
+    }
+
 
     /**
      * Updates booking, changes flight only

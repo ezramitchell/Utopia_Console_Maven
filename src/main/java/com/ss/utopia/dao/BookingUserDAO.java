@@ -1,14 +1,17 @@
 package com.ss.utopia.dao;
 
+import com.ss.utopia.entity.Airplane;
 import com.ss.utopia.entity.Booking;
 import com.ss.utopia.entity.BookingUser;
 import com.ss.utopia.entity.User;
+import com.ss.utopia.util.SQLUtil;
 
 import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -85,6 +88,19 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
     public void deleteBookingUserById(Integer id) throws SQLException {
         save("DELETE from booking_user WHERE booking_id = ?", new Object[]{id});
     }
+
+    /**
+     * Search table with parameters
+     *
+     * @param search must have at least one pair, services responsibility to have correct column names
+     * @return List of entity
+     * @throws SQLException invalid data or server failure
+     */
+    public List<BookingUser> search(LinkedHashMap<String, String> search) throws SQLException {
+        if (search.size() == 0) return new ArrayList<>();
+        return read(SQLUtil.constructSqlSearch("booking_user", search.size()), SQLUtil.collapseMap(search));
+    }
+
 
     /**
      * Deletes bookingUser

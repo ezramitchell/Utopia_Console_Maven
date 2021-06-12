@@ -1,12 +1,15 @@
 package com.ss.utopia.dao;
 
+import com.ss.utopia.entity.Airplane;
 import com.ss.utopia.entity.User;
 import com.ss.utopia.entity.UserRole;
+import com.ss.utopia.util.SQLUtil;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -54,6 +57,19 @@ public class UserRoleDAO extends BaseDAO<UserRole> {
     public List<UserRole> readAll() throws SQLException {
         return read("SELECT * FROM user_role", null);
     }
+
+    /**
+     * Search table with parameters
+     *
+     * @param search must have at least one pair, services responsibility to have correct column names
+     * @return List of entity
+     * @throws SQLException invalid data or server failure
+     */
+    public List<UserRole> search(LinkedHashMap<String, String> search) throws SQLException {
+        if (search.size() == 0) return new ArrayList<>();
+        return read(SQLUtil.constructSqlSearch("user_role", search.size()), SQLUtil.collapseMap(search));
+    }
+
 
 
     @Override
