@@ -2,8 +2,7 @@ package com.ss.utopia.dao;
 
 import com.ss.utopia.db.ConnectionUtil;
 import com.ss.utopia.entity.Booking;
-import com.ss.utopia.entity.BookingUser;
-import com.ss.utopia.entity.User;
+import com.ss.utopia.entity.Passenger;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -12,44 +11,51 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BookingUserDAOTest {
+class PassengerDAOTest {
 
     @Test
     public void testAddDelete() {
         try (Connection c = ConnectionUtil.getTransaction()) {
             try {
-                BookingUserDAO userDao = new BookingUserDAO(c);
+                PassengerDAO userDao = new PassengerDAO(c);
                 BookingDAO bookDAO = new BookingDAO(c);
                 //add airplane
 
                 Booking b = new Booking(-1, true, "confirmed");
 
-                bookDAO.addBooking(b); // add booking that payment references
+                bookDAO.addBooking(b); // add booking that guest references
                 // necessary so data doesn't influence testing
 
-                BookingUser bookingUser = new BookingUser(new Booking().setId(b.getId()), new User().setId(1));
+                Passenger bookingUser = new Passenger(
+                        -1,
+                        new Booking().setId(b.getId()),
+                        "name",
+                        "last",
+                        "m",
+                        "address");
 
                 //add bookingUser
-                userDao.addBookingUser(bookingUser);
+                userDao.addPassenger(bookingUser);
                 //check object exists
-                assertNotNull(userDao.readBookingUserById(bookingUser.getBooking().getId()));
+                assertNotNull(userDao.readPassengerById(bookingUser.getBooking().getId()));
 
 
                 //update object
-                bookingUser.setUser(new User().setId(3));
-                BookingUser copy = new BookingUser(bookingUser); //copy for comparison
+                bookingUser.setGender("f");
+                bookingUser.setAddress("new Address");
+                Passenger copy = new Passenger(bookingUser); //copy for comparison
 
-                userDao.updateBookingUser(bookingUser);
+                userDao.updatePassenger(bookingUser);
 
                 //read object, check value
-                bookingUser = userDao.readBookingUserById(bookingUser.getBooking().getId());
+                bookingUser = userDao.readPassengerById(bookingUser.getBooking().getId());
                 assertNotNull(bookingUser);
                 assertEquals(bookingUser, copy);
-
+                
                 //delete object
-                userDao.deleteBookingUser(bookingUser);
+                userDao.deletePassenger(bookingUser);
 
-                assertNull(userDao.readBookingUserById(bookingUser.getBooking().getId())); //object should be deleted
+                assertNull(userDao.readPassengerById(bookingUser.getBooking().getId())); //object should be deleted
 
             } catch (SQLException throwable) {
                 throwable.printStackTrace();
@@ -66,10 +72,10 @@ class BookingUserDAOTest {
     @Test
     public void testRead() {
         try (Connection c = ConnectionUtil.getConnection()) {
-            BookingUserDAO dao = new BookingUserDAO(c);
-            List<BookingUser> bookingPayments = dao.readAll();
+            PassengerDAO dao = new PassengerDAO(c);
+            List<Passenger> bookingPayments = dao.readAll();
             assertTrue(bookingPayments.size() > 0);
-            for (BookingUser type : bookingPayments) {
+            for (Passenger type : bookingPayments) {
                 assertTrue(type.validate());
             }
         } catch (SQLException throwables) {

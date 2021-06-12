@@ -14,6 +14,12 @@ public class BookingGuest {
     public BookingGuest() {
     }
 
+    public BookingGuest(BookingGuest other) {
+        this.booking = other.booking;
+        this.contactEmail = other.contactEmail;
+        this.contactPhone = other.contactPhone;
+    }
+
     public BookingGuest(Booking booking, String contactEmail, String contactPhone) {
         this.booking = booking;
         this.contactEmail = contactEmail;

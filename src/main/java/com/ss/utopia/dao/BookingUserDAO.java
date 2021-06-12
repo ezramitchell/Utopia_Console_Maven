@@ -29,20 +29,20 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
     }
 
     /**
-     * Add bookingAgent to database, BookingUser should be fully populated
+     * Add bookingUser to database, BookingUser should be fully populated
      *
-     * @param bookingAgent bookingAgent object all fields necessary
+     * @param bookingUser bookingUser object all fields necessary
      */
-    public void addBookingUser(BookingUser bookingAgent) throws SQLException {
-        if (!bookingAgent.validate()) throw new InvalidParameterException("Missing parameters");
+    public void addBookingUser(BookingUser bookingUser) throws SQLException {
+        if (!bookingUser.validate()) throw new InvalidParameterException("Missing parameters");
         save("INSERT INTO booking_user (booking_id, user_id) VALUES (?, ?)",
-                new Object[]{bookingAgent.getBooking().getId(), bookingAgent.getUser().getId()});
+                new Object[]{bookingUser.getBooking().getId(), bookingUser.getUser().getId()});
     }
 
     /**
-     * Update BookingUser with booking_id, bookingAgent should be fully populated
+     * Update BookingUser with booking_id, bookingUser should be fully populated
      *
-     * @param newBookingUser new bookingAgent data, id used for update
+     * @param newBookingUser new bookingUser data, id used for update
      * @throws SQLException invalid data or server failure
      */
     public void updateBookingUser(BookingUser newBookingUser) throws SQLException {
@@ -53,7 +53,7 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
 
 
     /**
-     * Find bookingAgent specified by booking_id
+     * Find bookingUser specified by booking_id
      *
      * @param id id to search for
      * @return BookingUser matching id
@@ -61,13 +61,13 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
      * @see BookingUser
      */
     public BookingUser readBookingUserById(Integer id) throws SQLException {
-        List<BookingUser> bookingAgentList = read("SELECT * FROM booking_user WHERE booking_id = ?", new Object[]{id});
-        if (bookingAgentList.size() == 0) return null;
-        return bookingAgentList.get(0);
+        List<BookingUser> bookingUserList = read("SELECT * FROM booking_user WHERE booking_id = ?", new Object[]{id});
+        if (bookingUserList.size() == 0) return null;
+        return bookingUserList.get(0);
     }
 
     /**
-     * Read all bookingAgents
+     * Read all bookingUsers
      *
      * @return list of BookingUser Object
      * @throws SQLException invalid data or server failure
@@ -78,7 +78,7 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
     }
 
     /**
-     * Deletes bookingAgent of booking_id
+     * Deletes bookingUser of booking_id
      *
      * @param id id to delete
      */
@@ -87,12 +87,12 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
     }
 
     /**
-     * Deletes bookingAgent
+     * Deletes bookingUser
      *
-     * @param bookingAgent bookingAgent to delete
+     * @param bookingUser bookingUser to delete
      */
-    public void deleteBookingUser(BookingUser bookingAgent) throws SQLException {
-        deleteBookingUserById(bookingAgent.getBooking().getId());
+    public void deleteBookingUser(BookingUser bookingUser) throws SQLException {
+        deleteBookingUserById(bookingUser.getBooking().getId());
     }
 
 

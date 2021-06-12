@@ -45,7 +45,12 @@ public class Passenger {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Passenger passenger = (Passenger) o;
-        return Objects.equals(id, passenger.id) && Objects.equals(booking, passenger.booking) && Objects.equals(givenName, passenger.givenName) && Objects.equals(familyName, passenger.familyName) && Objects.equals(gender, passenger.gender) && Objects.equals(address, passenger.address);
+        return Objects.equals(id, passenger.id)
+                && Objects.equals(booking, passenger.booking)
+                && Objects.equals(givenName, passenger.givenName)
+                && Objects.equals(familyName, passenger.familyName)
+                && Objects.equals(gender, passenger.gender)
+                && Objects.equals(address, passenger.address);
     }
 
     @Override
