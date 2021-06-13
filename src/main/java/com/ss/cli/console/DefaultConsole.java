@@ -2,6 +2,7 @@ package com.ss.cli.console;
 
 import com.ss.cli.handlers.AuthHandler;
 import com.ss.cli.handlers.ConsoleHandler;
+import com.ss.service.AuthenticationExecutor;
 
 import java.util.Scanner;
 import java.util.Stack;
@@ -15,6 +16,16 @@ public class DefaultConsole extends Thread {
 
     public DefaultConsole(ConsoleHandler start, Scanner input) {
         this.handlers = new Stack<>();
+        handlers.add(start);
+        start.init();
+        this.input = input;
+        retry = false;
+        retryCount = 0;
+    }
+
+    public DefaultConsole(Scanner input){
+        this.handlers = new Stack<>();
+        AuthHandler start = new AuthHandler(input);
         handlers.add(start);
         start.init();
         this.input = input;
@@ -47,17 +58,20 @@ public class DefaultConsole extends Thread {
                         break;
                     case -1: //back one
                         handlers.pop();
+                        handlers.peek().init();
                         break;
                     case -2: //to auth
                         for (int i = handlers.size() - 1; i > 0; i--) {
                             if (handlers.peek() instanceof AuthHandler) break;
                             else handlers.pop();
                         }
+                        handlers.peek().init();
                         break;
                     case -3: //to beginning
                         for (int i = handlers.size() - 1; i > 0; i--) {
                             handlers.pop();
                         }
+                        handlers.peek().init();
                         break;
                     case -4: //exit
                         handlers.clear();
@@ -65,6 +79,7 @@ public class DefaultConsole extends Thread {
                 }
             } else {
                 handlers.push(consoleHandler);
+                handlers.peek().init();
             }
         }
     }

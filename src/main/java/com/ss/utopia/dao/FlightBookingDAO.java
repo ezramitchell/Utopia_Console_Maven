@@ -67,7 +67,7 @@ public class FlightBookingDAO extends BaseDAO<FlightBooking> {
      * @return corresponding flight
      * @throws SQLException invalid data or server failure
      */
-    public FlightBooking readFlightBookingByBooking(Integer bookingId) throws SQLException {
+    public FlightBooking readFBId(Integer bookingId) throws SQLException {
         List<FlightBooking> bookings = read("SELECT * FROM flight_booking WHERE booking_id = ?", new Object[]{bookingId});
         if (bookings.size() == 0) return null;
         return bookings.get(0);

@@ -30,20 +30,20 @@ class FlightBookingDAOTest {
                 fbDAO.addFlightBooking(fb);
 
                 //full check impossible because booking is populated in original object
-                assertEquals(fb.getFlight().getId(), fbDAO.readFlightBookingByBooking(fb.getBooking().getId()).getFlight().getId());
+                assertEquals(fb.getFlight().getId(), fbDAO.readFBId(fb.getBooking().getId()).getFlight().getId());
                 //update booking
                 FlightBooking oldFb = new FlightBooking(fb); //for comparison
                 fb.getFlight().setId(4);
 
                 fbDAO.updateBooking(fb);
 
-                assertNotEquals(oldFb, fbDAO.readFlightBookingByBooking(fb.getBooking().getId())); //changed values
+                assertNotEquals(oldFb, fbDAO.readFBId(fb.getBooking().getId())); //changed values
                 //depopulate booking for equal check
-                assertEquals(fb.setBooking(new Booking().setId(b.getId())), fbDAO.readFlightBookingByBooking(fb.getBooking().getId())); //check for lost data
+                assertEquals(fb.setBooking(new Booking().setId(b.getId())), fbDAO.readFBId(fb.getBooking().getId())); //check for lost data
 
                 //delete booking
                 bDAO.deleteBooking(b);
-                assertNull(fbDAO.readFlightBookingByBooking(fb.getBooking().getId()));
+                assertNull(fbDAO.readFBId(fb.getBooking().getId()));
 
             }catch (SQLException throwable){
                 throwable.printStackTrace();

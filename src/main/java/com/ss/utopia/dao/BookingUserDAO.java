@@ -61,10 +61,22 @@ public class BookingUserDAO extends BaseDAO<BookingUser> {
      * @throws SQLException invalid data or server failure
      * @see BookingUser
      */
-    public BookingUser readBookingUserById(Integer id) throws SQLException {
+    public BookingUser readBookingUserByBooking(Integer id) throws SQLException {
         List<BookingUser> bookingUserList = read("SELECT * FROM booking_user WHERE booking_id = ?", new Object[]{id});
         if (bookingUserList.size() == 0) return null;
         return bookingUserList.get(0);
+    }
+
+    /**
+     * Find bookingUser specified by user_id
+     *
+     * @param user user to search for
+     * @return BookingUser matching id
+     * @throws SQLException invalid data or server failure
+     * @see BookingUser
+     */
+    public List<BookingUser> readBookingByUser(User user) throws SQLException {
+        return read("SELECT * FROM booking_user WHERE user_id = ?", new Object[]{user.getId()});
     }
 
     /**
