@@ -1,9 +1,7 @@
 package com.ss.utopia.dao;
 
-import com.ss.utopia.entity.Airplane;
 import com.ss.utopia.entity.User;
 import com.ss.utopia.entity.UserRole;
-import com.ss.utopia.util.SQLUtil;
 
 import java.security.InvalidParameterException;
 import java.sql.Connection;
@@ -91,16 +89,31 @@ public class UserDAO extends BaseDAO<User> {
     }
 
     /**
-     * Search table with parameters
-     *
-     * @param search must have at least one pair, services responsibility to have correct column names
-     * @return List of entity
+     * Get user of username
+     * @param username to search
+     * @param password to search
+     * @return null or User
      * @throws SQLException invalid data or server failure
      */
-    public List<User> search(LinkedHashMap<String, String> search) throws SQLException {
-        if (search.size() == 0) return new ArrayList<>();
-        return read(SQLUtil.constructSqlSearch("user", search.size()), SQLUtil.collapseMap(search));
+    public User searchUsername(String username, String password) throws SQLException {
+        List<User> users = read("SELECT * FROM user WHERE username = ? AND password = ?", new Object[]{username, password});
+        if (users.size() == 0) return null;
+        return users.get(0);
     }
+
+    /**
+     * Get user of username
+     * @param email to search
+     * @param password to search
+     * @return null or User
+     * @throws SQLException invalid data or server failure
+     */
+    public User searchEmail(String email, String password) throws SQLException {
+        List<User> users = read("SELECT * FROM user WHERE email = ? AND password = ?", new Object[]{email, password});
+        if (users.size() == 0) return null;
+        return users.get(0);
+    }
+
 
 
     /**

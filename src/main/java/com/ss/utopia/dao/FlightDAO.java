@@ -3,7 +3,6 @@ package com.ss.utopia.dao;
 import com.ss.utopia.entity.Airplane;
 import com.ss.utopia.entity.Flight;
 import com.ss.utopia.entity.Route;
-import com.ss.utopia.util.SQLUtil;
 
 import java.security.InvalidParameterException;
 import java.sql.Connection;
@@ -71,18 +70,6 @@ public class FlightDAO extends BaseDAO<Flight> {
                         newFlight.getReservedSeats(),
                         newFlight.getSeatPrice(),
                         newFlight.getId()});
-    }
-
-    /**
-     * Search table with parameters
-     *
-     * @param search must have at least one pair, services responsibility to have correct column names
-     * @return List of entity
-     * @throws SQLException invalid data or server failure
-     */
-    public List<Flight> search(LinkedHashMap<String, String> search) throws SQLException {
-        if (search.size() == 0) return new ArrayList<>();
-        return read(SQLUtil.constructSqlSearch("flight", search.size()), SQLUtil.collapseMap(search));
     }
 
 
