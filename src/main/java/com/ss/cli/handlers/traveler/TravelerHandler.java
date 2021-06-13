@@ -138,7 +138,7 @@ public class TravelerHandler extends ConsoleHandler {
         System.out.println("Enter id of flight");
         try{
             int id = Integer.parseInt(input.nextLine());
-            if(id >= index) return new ExitHandler(ExitHandler.ExitType.FAILED);
+            if(id > index) return new ExitHandler(ExitHandler.ExitType.FAILED);
 
             //get passenger information
             System.out.println("Passenger information");
@@ -154,7 +154,7 @@ public class TravelerHandler extends ConsoleHandler {
 
             passenger.setId(-1);
 
-            if(te.bookFlight(flights.get(id), user, passenger))
+            if(te.bookFlight(flights.get(id - 1), user, passenger))
                 return new ExitHandler(ExitHandler.ExitType.NOTHING);
         } catch (Exception ignored) {}
         return new ExitHandler(ExitHandler.ExitType.FAILED);
