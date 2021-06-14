@@ -2,7 +2,9 @@ package com.ss.cli.handlers.admin;
 
 import com.ss.cli.handlers.ConsoleHandler;
 import com.ss.cli.handlers.admin.commands.AddCommand;
+import com.ss.cli.handlers.admin.commands.DeleteCommand;
 import com.ss.cli.handlers.admin.commands.SearchCommand;
+import com.ss.cli.handlers.admin.commands.UpdateCommand;
 
 import java.util.Scanner;
 
@@ -47,10 +49,57 @@ public class AdminHandler extends ConsoleHandler {
                         -email value""");
 
         registerCommand("add", new AddCommand(input).createAdd(), """
-                -flight
-                -booking
-                -airport
-                -traveler
-                -agent""");
+                add
+                    -flight
+                    -booking
+                    -airport
+                    -traveler
+                    -agent""");
+
+        registerCommand("delete", new DeleteCommand().createDelete(), """
+                delete
+                    -traveler
+                        -id value
+                    -agent
+                        -id value
+                    -airport
+                        -iata_id value
+                    -booking
+                        -id value
+                    -flight
+                        -id value""");
+
+        registerCommand("update", new UpdateCommand().createUpdate(), """
+                update
+                    -traveler
+                            -id     value
+                            -given_name     value
+                            -family_name    value
+                            -username   value
+                            -email      value
+                            -password   value
+                            -phone      value
+                    -agent
+                        -id     value
+                        -given_name     value
+                        -family_name    value
+                        -username   value
+                        -email      value
+                        -password   value
+                        -phone      value
+                    -airport
+                        -id     id to update
+                        -iata_id     new id
+                        -city   "city"
+                    -booking
+                        -id     value
+                        -active     1 or 0
+                        -confirmation   value
+                        -seat_type  value
+                    -flight
+                        -id     value
+                        -route  route_id
+                        -airplane   id
+                        -departure      yyyy-MM-dd HH:mm:ss local timezone""");
     }
 }

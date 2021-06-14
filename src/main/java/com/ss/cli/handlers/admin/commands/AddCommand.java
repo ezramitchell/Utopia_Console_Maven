@@ -71,6 +71,9 @@ public class AddCommand {
         System.out.println("Enter username:");
         user.setUsername(input.nextLine());
 
+        System.out.println("Enter email");
+        user.setEmail(input.nextLine());
+
         System.out.println("Enter password:");
         user.setPassword(input.nextLine());
 
@@ -153,9 +156,9 @@ public class AddCommand {
         System.out.println("Commit booking? y/n");
         if(!input.nextLine().equals("y")) return new ExitHandler(ExitHandler.ExitType.NOTHING);
 
-        Booking b = new AdminExecutorAdds().addBooking(flightId, seatType, confirmation, userId, agentId, passenger);
-        System.out.println("Add successful, id is " + b.getId());
-        if(b == null) return new ExitHandler(ExitHandler.ExitType.FAILED);
+        Booking booking = new AdminExecutorAdds().addBooking(flightId, seatType, confirmation, userId, agentId, passenger);
+        System.out.printf("Add successful, id is %s", booking.getId());
+        if(booking == null) return new ExitHandler(ExitHandler.ExitType.FAILED);
         return new ExitHandler(ExitHandler.ExitType.NOTHING);
     }
 

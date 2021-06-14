@@ -171,12 +171,14 @@ public class SearchCommand {
             bookings = new AdminExecutorSearch().searchBookings(params);
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - hh:mm a z");
+
         //print bookings
         for (FlightBooking booking : bookings) {
             System.out.printf("Flight: %s, Route: %s, Departure date: %s, Booking id: %s, Booking active: %s%n",
                     booking.getFlight().getId(),
                     booking.getFlight().getRoute().getId(),
-                    booking.getFlight().getDepartureTime().toString(),
+                    booking.getFlight().getDepartureTime().format(formatter),
                     booking.getBooking().getId(),
                     booking.getBooking().getActive().toString());
         }
