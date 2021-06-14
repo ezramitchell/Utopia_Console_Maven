@@ -1,14 +1,16 @@
 package com.ss.utopia.entity;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Booking {
     private Integer id;
     private Boolean isActive;
     private String confirmationCode;
+    private String seatType;
 
     public boolean validate() {
-        return id != null && isActive != null && confirmationCode != null;
+        return id != null && isActive != null && confirmationCode != null && seatType != null;
     }
 
     public Booking() {
@@ -23,6 +25,21 @@ public class Booking {
         this.id = other.id;
         this.isActive = other.isActive;
         this.confirmationCode = other.confirmationCode;
+        this.seatType = other.seatType;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public String getSeatType() {
+        return seatType;
+    }
+
+    public Booking setSeatType(String seatType) {
+        if(Arrays.asList(new String[]{"economy, first, business"}).contains(seatType))
+            this.seatType = seatType;
+        return this;
     }
 
     /**
@@ -31,11 +48,13 @@ public class Booking {
      * @param id               unnecessary for inserts, specify for updates
      * @param isActive         Integer in database, converted to boolean for ease in entity
      * @param confirmationCode code sent to user
+     * @param seatType seatType, first, economy, booking
      */
-    public Booking(Integer id, boolean isActive, String confirmationCode) {
+    public Booking(Integer id, boolean isActive, String confirmationCode, String seatType) {
         this.id = id;
         this.isActive = isActive;
         this.confirmationCode = confirmationCode;
+        this.seatType = seatType;
     }
 
     @Override

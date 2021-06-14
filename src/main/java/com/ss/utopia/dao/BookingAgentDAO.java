@@ -4,6 +4,7 @@ import com.ss.utopia.entity.Booking;
 import com.ss.utopia.entity.BookingAgent;
 import com.ss.utopia.entity.User;
 
+import java.awt.print.Book;
 import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -66,6 +67,7 @@ public class BookingAgentDAO extends BaseDAO<BookingAgent> {
         if (bookingAgentList.size() == 0) return null;
         return bookingAgentList.get(0);
     }
+
 
     /**
      * Read all bookingAgents

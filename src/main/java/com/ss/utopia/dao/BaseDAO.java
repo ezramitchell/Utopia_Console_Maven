@@ -3,6 +3,7 @@ package com.ss.utopia.dao;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public abstract class BaseDAO<T> {
      * @return List of specified generic
      * @throws SQLException invalid data or server failure
      */
-    public List<T> read(String sql, @Nullable Object[] args) throws SQLException {
+    List<T> read(String sql, @Nullable Object[] args) throws SQLException {
         PreparedStatement stm = conn.prepareStatement(sql);
         if (args != null) {
             int i = 1;
@@ -62,6 +63,16 @@ public abstract class BaseDAO<T> {
             }
         }
         return extractData(stm.executeQuery());
+    }
+
+    protected String[] getColumnNames(String table) throws SQLException {
+        PreparedStatement stm = conn.prepareStatement("SELECT * FROM " + table + " LIMIT 1");
+        ResultSetMetaData rsmd = stm.executeQuery().getMetaData();
+        List<String> columns = new ArrayList<>();
+        for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+            columns.add(rsmd.getColumnName(i));
+        }
+        return columns.toArray(new String[0]);
     }
 
     protected abstract List<T> extractData(ResultSet rs) throws SQLException;

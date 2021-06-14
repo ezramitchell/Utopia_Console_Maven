@@ -23,7 +23,7 @@ class FlightBookingDAOTest {
                 BookingDAO bDAO = new BookingDAO(c);
 
                 //add item
-                Booking b = new Booking(-1, true, "confirm");
+                Booking b = new Booking(-1, true, "confirm", "economy");
                 b = bDAO.addBooking(b);
 
                 FlightBooking fb = new FlightBooking(new Flight().setId(3), b);

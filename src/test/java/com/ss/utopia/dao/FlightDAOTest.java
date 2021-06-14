@@ -76,4 +76,16 @@ class FlightDAOTest {
             throwable.printStackTrace();
         }
     }
+
+    @Test
+    void getColumns(){
+        try(Connection c = ConnectionUtil.getConnection()){
+            FlightDAO dao = new FlightDAO(c);
+            String[] columns = dao.getColumnNames();
+            assertArrayEquals(new String[]{"id", "route_id", "airplane_id", "departure_time", "reserved_seats", "seat_price"}, columns);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            fail();
+        }
+    }
 }

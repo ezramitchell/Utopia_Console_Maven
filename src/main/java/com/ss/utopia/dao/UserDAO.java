@@ -1,5 +1,6 @@
 package com.ss.utopia.dao;
 
+import com.ss.utopia.entity.Flight;
 import com.ss.utopia.entity.User;
 import com.ss.utopia.entity.UserRole;
 
@@ -74,6 +75,26 @@ public class UserDAO extends BaseDAO<User> {
         List<User> users = read("SELECT * FROM user WHERE id = ?", new Object[]{id});
         if (users.size() == 0) return null;
         return users.get(0);
+    }
+
+    /**
+     * For use in admin methods, adminExecutor responsible for correct column names
+     * @param params column value pairs
+     * @return list of flights
+     * @throws SQLException invalid data or server failure
+     */
+    public List<User> search(LinkedHashMap<String, String> params) throws SQLException {
+        return read(
+                DAOUtil.constructSQLSearchString("user", params.keySet().toArray(new String[0])),
+                params.values().toArray(new Object[0]));
+    }
+
+    /**
+     * For checking valid column names
+     * @return list of columns
+     */
+    public String[] getColumnNames() throws SQLException {
+        return getColumnNames("user");
     }
 
     /**

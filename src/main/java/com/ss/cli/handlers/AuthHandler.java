@@ -1,5 +1,6 @@
 package com.ss.cli.handlers;
 
+import com.ss.cli.handlers.admin.AdminHandler;
 import com.ss.cli.handlers.traveler.TravelerHandler;
 import com.ss.service.AuthenticationExecutor;
 import com.ss.utopia.entity.User;
@@ -55,7 +56,7 @@ public class AuthHandler extends ConsoleHandler {
                 case "Administrator" -> { //
                     //TODO administrator handler
                     System.out.println("Successfully authenticated");
-                    return new ExitHandler(ExitHandler.ExitType.NOTHING);
+                    return new AdminHandler(input);
                 }
                 case "Agent" -> {
                     //TODO agent handler

@@ -72,6 +72,25 @@ public class FlightDAO extends BaseDAO<Flight> {
                         newFlight.getId()});
     }
 
+    /**
+     * For use in admin methods, adminExecutor responsible for correct column names
+     * @param params column value pairs
+     * @return list of flights
+     * @throws SQLException invalid data or server failure
+     */
+    public List<Flight> search(LinkedHashMap<String, String> params) throws SQLException {
+        return read(
+                DAOUtil.constructSQLSearchString("flight", params.keySet().toArray(new String[0])),
+                params.values().toArray(new Object[0]));
+    }
+
+    /**
+     * For checking valid column names
+     * @return list of columns
+     */
+    public String[] getColumnNames() throws SQLException {
+        return getColumnNames("flight");
+    }
 
 
     /**

@@ -29,6 +29,9 @@ public abstract class ConsoleHandler {
      * Adds default commands, listed in comments
      */
     private void addDefaultCommands(){
+        //back
+        registerCommand("back", args -> new ExitHandler(ExitHandler.ExitType.BACK),
+                "back\tback one menu\n\tOptions: none");
         //exit
         registerCommand("exit", args -> new ExitHandler(ExitHandler.ExitType.EXIT),
                 "exit\tcloses program\n\tOptions: none");
@@ -75,9 +78,9 @@ public abstract class ConsoleHandler {
         lastCommand = commandString;
         //command structure is name/altName -param value
         //split by ' '
-        List<String> tokens = Collections.list(new StringTokenizer(commandString, " ")).stream()
-                .map(token -> (String) token)
-                .collect(Collectors.toList());
+
+        List<String> tokens = Arrays.stream(commandString.split(" (?=([^\"]*\"[^\"]*\")*[^\"]*$)"))
+                .map(s -> s.replace("\"", "")).toList(); //this isn't my regex
 
         if(tokens.size() > 0){
             String command = tokens.get(0);

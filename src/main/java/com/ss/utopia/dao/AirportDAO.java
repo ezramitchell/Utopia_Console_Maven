@@ -1,6 +1,7 @@
 package com.ss.utopia.dao;
 
 import com.ss.utopia.entity.Airport;
+import com.ss.utopia.entity.Flight;
 
 import java.security.InvalidParameterException;
 import java.sql.Connection;
@@ -60,6 +61,26 @@ public class AirportDAO extends BaseDAO<Airport> {
      */
     public void updateAirport(Airport airport) throws SQLException {
         updateAirportById(airport, airport.getIataId());
+    }
+
+    /**
+     * For use in admin methods, adminExecutor responsible for correct column names
+     * @param params column value pairs
+     * @return list of flights
+     * @throws SQLException invalid data or server failure
+     */
+    public List<Airport> search(LinkedHashMap<String, String> params) throws SQLException {
+        return read(
+                DAOUtil.constructSQLSearchString("airport", params.keySet().toArray(new String[0])),
+                params.values().toArray(new Object[0]));
+    }
+
+    /**
+     * For checking valid column names
+     * @return list of columns
+     */
+    public String[] getColumnNames() throws SQLException {
+        return getColumnNames("airport");
     }
 
 

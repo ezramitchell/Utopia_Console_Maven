@@ -1,4 +1,4 @@
-package com.ss.service;
+package com.ss.service.traveler;
 
 import com.ss.utopia.dao.*;
 import com.ss.utopia.db.ConnectionUtil;
@@ -122,7 +122,7 @@ public class TravelerExecutor {
         return new ArrayList<>();
     }
 
-    public boolean bookFlight(Flight flight, User user, Passenger p) {
+    public boolean bookFlight(Flight flight, User user, Passenger p, String seatType) {
         try(Connection c = ConnectionUtil.getTransaction()){
             try{
                 FlightBookingDAO flightBookingDAO = new FlightBookingDAO(c);
@@ -131,7 +131,7 @@ public class TravelerExecutor {
                 BookingPaymentDAO bookingPaymentDAO = new BookingPaymentDAO(c);
                 PassengerDAO passengerDAO = new PassengerDAO(c);
 
-                Booking b = bookingDAO.addBooking(new Booking(-1, true, "confirmed"));
+                Booking b = bookingDAO.addBooking(new Booking(-1, true, "confirmed", seatType));
                 flightBookingDAO.addFlightBooking(new FlightBooking(flight, b));
                 bookingUserDAO.addBookingUser(new BookingUser(b, user));
                 bookingPaymentDAO.addBookingPayment(new BookingPayment(b, "2340", false));

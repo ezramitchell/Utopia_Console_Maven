@@ -25,7 +25,7 @@ class BookingPaymentDAOTest {
                 BookingDAO bookDAO = new BookingDAO(c);
                 //add airplane
 
-                Booking b = new Booking(-1, true, "confirmed");
+                Booking b = new Booking(-1, true, "confirmed", "economy");
                 BookingPayment bp = new BookingPayment(b, "id", false);
 
 

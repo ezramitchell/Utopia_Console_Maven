@@ -2,7 +2,7 @@ package com.ss.cli.handlers.traveler;
 
 import com.ss.cli.handlers.ConsoleHandler;
 import com.ss.cli.handlers.ExitHandler;
-import com.ss.service.TravelerExecutor;
+import com.ss.service.traveler.TravelerExecutor;
 import com.ss.utopia.entity.*;
 
 import java.util.Arrays;
@@ -140,21 +140,25 @@ public class TravelerHandler extends ConsoleHandler {
             int id = Integer.parseInt(input.nextLine());
             if(id > index) return new ExitHandler(ExitHandler.ExitType.FAILED);
 
+            //get seat type
+            System.out.println("Enter seat type, pricing displayed is economy:");
+            String seatType = input.nextLine();
+
             //get passenger information
-            System.out.println("Passenger information");
+            System.out.println("Passenger information:");
             Passenger passenger = new Passenger();
-            System.out.println("Enter passengers given name");
+            System.out.println("Enter passengers given name:");
             passenger.setGivenName(input.nextLine());
-            System.out.println("Enter passengers family name");
+            System.out.println("Enter passengers family name:");
             passenger.setFamilyName(input.nextLine());
-            System.out.println("Enter passengers gender, N/A alright");
+            System.out.println("Enter passengers gender, N/A alright:");
             passenger.setGender(input.nextLine());
-            System.out.println("Enter payment address");
+            System.out.println("Enter payment address:");
             passenger.setAddress(input.nextLine());
 
             passenger.setId(-1);
 
-            if(te.bookFlight(flights.get(id - 1), user, passenger))
+            if(te.bookFlight(flights.get(id - 1), user, passenger, seatType))
                 return new ExitHandler(ExitHandler.ExitType.NOTHING);
         } catch (Exception ignored) {}
         return new ExitHandler(ExitHandler.ExitType.FAILED);

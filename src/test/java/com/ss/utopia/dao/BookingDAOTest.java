@@ -19,7 +19,7 @@ class BookingDAOTest {
                 BookingDAO dao = new BookingDAO(c);
 
                 //add object
-                Booking b = new Booking(-1, true, "confirm");
+                Booking b = new Booking(-1, true, "confirm", "economy");
                 Booking oldB = new Booking(b);
 
                 b = dao.addBooking(b);

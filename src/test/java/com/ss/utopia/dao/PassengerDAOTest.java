@@ -21,7 +21,7 @@ class PassengerDAOTest {
                 BookingDAO bookDAO = new BookingDAO(c);
                 //add airplane
 
-                Booking b = new Booking(-1, true, "confirmed");
+                Booking b = new Booking(-1, true, "confirmed", "economy");
 
                 bookDAO.addBooking(b); // add booking that guest references
                 // necessary so data doesn't influence testing
