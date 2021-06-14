@@ -1,6 +1,7 @@
 package com.ss.cli.handlers.admin;
 
 import com.ss.cli.handlers.ConsoleHandler;
+import com.ss.cli.handlers.admin.commands.AddCommand;
 import com.ss.cli.handlers.admin.commands.SearchCommand;
 
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class AdminHandler extends ConsoleHandler {
 
 
     private void addCommands(){
-        registerCommand("search", SearchCommand.createSearch(), """
+        registerCommand("search", new SearchCommand().createSearch(), """
                 search
                     -flight     table to search
                         -id value
@@ -44,5 +45,12 @@ public class AdminHandler extends ConsoleHandler {
                     -agent
                         -id value
                         -email value""");
+
+        registerCommand("add", new AddCommand(input).createAdd(), """
+                -flight
+                -booking
+                -airport
+                -traveler
+                -agent""");
     }
 }

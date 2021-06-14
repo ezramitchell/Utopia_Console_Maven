@@ -37,7 +37,7 @@ class PassengerDAOTest {
                 //add bookingUser
                 userDao.addPassenger(bookingUser);
                 //check object exists
-                assertNotNull(userDao.readPassengerById(bookingUser.getBooking().getId()));
+                assertNotNull(userDao.readPassengerByBookingId(bookingUser.getBooking().getId()));
 
 
                 //update object
@@ -48,14 +48,14 @@ class PassengerDAOTest {
                 userDao.updatePassenger(bookingUser);
 
                 //read object, check value
-                bookingUser = userDao.readPassengerById(bookingUser.getBooking().getId());
+                bookingUser = userDao.readPassengerByBookingId(bookingUser.getBooking().getId());
                 assertNotNull(bookingUser);
                 assertEquals(bookingUser, copy);
                 
                 //delete object
-                userDao.deletePassenger(bookingUser);
+                bookDAO.deleteBookingByID(bookingUser.getBooking().getId());
 
-                assertNull(userDao.readPassengerById(bookingUser.getBooking().getId())); //object should be deleted
+                assertNull(userDao.readPassengerById(bookingUser.getId())); //object should be deleted
 
             } catch (SQLException throwable) {
                 throwable.printStackTrace();

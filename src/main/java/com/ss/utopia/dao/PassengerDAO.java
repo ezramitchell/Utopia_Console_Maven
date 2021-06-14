@@ -58,7 +58,7 @@ public class PassengerDAO extends BaseDAO<Passenger> {
                         "given_name = ?, " +
                         "family_name = ?, " +
                         "gender = ?," +
-                        "address = ?, " +
+                        "address = ? " +
                         "WHERE id = ?",
                 new Object[]{passenger.getBooking().getId(),
                         passenger.getGivenName(),

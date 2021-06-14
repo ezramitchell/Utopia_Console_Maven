@@ -10,6 +10,7 @@ import com.ss.utopia.entity.Flight;
 import com.ss.utopia.entity.FlightBooking;
 import com.ss.utopia.entity.User;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -49,7 +50,7 @@ public class SearchCommand {
      *
      * @return new search command
      */
-    public static Command createSearch() {
+    public Command createSearch() {
         return args -> {
             LinkedHashMap<String, String> params = CommandUtil.constructArgs(args);
             //first argument is table, only one table can be searched at a time
@@ -76,7 +77,7 @@ public class SearchCommand {
         };
     }
 
-    private static ConsoleHandler searchUser(LinkedHashMap<String, String> params, int roleID) {
+    private ConsoleHandler searchUser(LinkedHashMap<String, String> params, int roleID) {
         List<String> validKeys = Arrays.stream(new String[]{"id", "username", "email", "phone"}).toList();
         //remove any invalid parameters
         String[] invalidKeys = params.keySet().stream().filter(s -> !validKeys.contains(s)).toArray(String[]::new);
@@ -109,7 +110,7 @@ public class SearchCommand {
      * @param params params passed by user
      * @return ConsoleHandler with exit code
      */
-    private static ConsoleHandler searchAirport(LinkedHashMap<String, String> params) {
+    private ConsoleHandler searchAirport(LinkedHashMap<String, String> params) {
         List<String> validKeys = Arrays.stream(new String[]{"iata_id", "city"}).toList();
         //remove any invalid parameters
         String[] invalidKeys = params.keySet().stream().filter(s -> !validKeys.contains(s)).toArray(String[]::new);
@@ -137,7 +138,7 @@ public class SearchCommand {
      * @param params parameters passed by user
      * @return ExitHandler
      */
-    private static ConsoleHandler searchBooking(LinkedHashMap<String, String> params) {
+    private ConsoleHandler searchBooking(LinkedHashMap<String, String> params) {
         List<String> validKeys = Arrays.stream(new String[]{"id", "is_active", "seat_type"}).toList();
         //remove any invalid parameters
         String[] invalidKeys = params.keySet().stream().filter(s -> !validKeys.contains(s)).toArray(String[]::new);
@@ -198,12 +199,15 @@ public class SearchCommand {
 
         if (flights.size() == 0) System.out.println("No search results");
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - hh:mm a z");
+
         //print flights
         for (Flight flight : flights) {
-            System.out.printf("%s -> %s Id: %s, Route id: %s, Seat price: %.2f%n",
+            System.out.printf("%s -> %s Id: %s, Route id: %s, Seat price: %.2f, Departure: %s%n",
                     flight.getRoute().getOriginAirport().getIataId(),
                     flight.getRoute().getDestinationAirport().getIataId(),
-                    flight.getId(), flight.getRoute().getId(), flight.getSeatPrice());
+                    flight.getId(), flight.getRoute().getId(), flight.getSeatPrice(),
+                    flight.getDepartureTime().format(formatter));
         }
 
         return new ExitHandler(ExitHandler.ExitType.NOTHING);

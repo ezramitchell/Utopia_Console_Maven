@@ -37,8 +37,7 @@ public class Booking {
     }
 
     public Booking setSeatType(String seatType) {
-        if(Arrays.asList(new String[]{"economy, first, business"}).contains(seatType))
-            this.seatType = seatType;
+        this.seatType = seatType;
         return this;
     }
 

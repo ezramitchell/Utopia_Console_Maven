@@ -37,7 +37,6 @@ public class Airport {
     }
 
     public Airport setIataId(String iataId) {
-        if (iataId.length() != 3) throw new InvalidParameterException("Invalid id");
         this.iataId = iataId;
         return this;
     }

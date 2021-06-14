@@ -35,7 +35,6 @@ public abstract class BaseDAO<T> {
                 i++;
             }
         }
-
         stm.executeUpdate();
         ResultSet rs = stm.getGeneratedKeys();
 
